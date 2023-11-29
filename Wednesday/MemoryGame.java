@@ -1,6 +1,10 @@
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,12 +19,37 @@ public class MemoryGame extends JFrame{
     ArrayList<Color> colorsList = new ArrayList<Color>();
 
     int match = 0;
+    int score = 0;
+    JMenu menu;
     JButton initialSelection;
+
+    // JMenuBar menuBar; //GREENED OUT MY WORK..
+    // JMenu menu;
+    // JMenuItem menuItemResetGame;
+
 
 
     public MemoryGame() { //Ctor
         super("Memory Game");
         GridLayout gridLayout = new GridLayout(ROWS, COLUMNS);
+
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("Score: " + score);
+        JMenuItem jMenuItem = new JMenuItem("Restart Game");
+        menu.add(jMenuItem);
+        menuBar.add(menu);
+        setJMenuBar(menuBar);
+
+        // menuBar = new JMenuBar(); ///GREENED OUT MY WORK---IT MOSTLY WORKS
+        // menu = new JMenu("Score: " + score);
+
+        // menuItemResetGame = new JMenuItem("Reset Game");
+        // menuItemResetGame.addActionListener(e -> ResetGame());
+        // // menu.add(menuItemResetGame);
+        // menuBar.add(menu);
+        // setJMenuBar(menuBar);
+        
+
         for(int i = 0; i < ROWS * COLUMNS; i++) 
         {
             JButton button = new JButton();
@@ -54,21 +83,47 @@ public class MemoryGame extends JFrame{
             //let user know of match
             button.setEnabled(false);
             match++;
+            score += 10;
+            JOptionPane.showMessageDialog(this, "The Score is: " + score);
         } else {
             //let user know there wasn't a match
-            JOptionPane.showMessageDialog(this, "the colors don't match");
+            JOptionPane.showMessageDialog(this, "The colors don't match" + "\nThe Score is: " + score);
             //reset the buttons
             button.setEnabled(true);
             button.setBackground(null);
             initialSelection.setEnabled(true);
             initialSelection.setBackground(null);
+            // score -= 1;
+            int newScore = score -1;
+            score = newScore < 0 ? 0: newScore; //The ? is a ... its a condensed form of ifs(see below)
+            // if(newScore < 0) {
+            //     score = 0;
+            // } else {
+            //     score = score;
+            // }
 
             }
             // reset the first selection to null
             initialSelection = null;
+            menu.setText("Score: " + score);
+
+
         }
+        // while(buttonList.button.setEnabled != false) {
+
+        // }
 
     }
+    private void RestartGame() {
+
+        for(int i = 0; i < buttonList.size(); i++) {
+            JButton button = buttonList.get(i);
+            button.setBackground(.....);
+        }
+    }
+    // private void ResetGame() {
+    //     System.exit(0);
+    // }
 
     private void InitColorsList() {
         colorsList.add(Color.CYAN);
